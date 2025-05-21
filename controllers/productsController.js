@@ -45,6 +45,8 @@ exports.getNewProductView = async (request, response) => {
   });
 };
 
+
+
 exports.getProductView = async (request, response) => {
   const cartCount = cartController.getProductsCount();
   const name = request.params.name;
@@ -66,4 +68,9 @@ exports.deleteProduct = async (request, response) => {
   await Product.deleteByName(name);
 
   response.status(STATUS_CODE.OK).json({ success: true });
+};
+
+exports.addProduct = async (request, response) => {
+  await Product.add(request.body);
+  response.status(STATUS_CODE.FOUND).redirect("/products/new");
 };
